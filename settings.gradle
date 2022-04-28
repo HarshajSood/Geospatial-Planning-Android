@@ -4,6 +4,9 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
+        maven {
+            url 'https://maven.tomtom.com:8443/nexus/content/repositories/releases/'
+        }
     }
 }
 rootProject.name = "Geospatialplanning"

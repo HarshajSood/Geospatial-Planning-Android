@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -54,34 +53,16 @@
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextLatitude" />
 
-    <TextView
-        android:id="@+id/ortext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="OR"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/button" />
-
     <fragment xmlns:tomtom="http://schemas.android.com/apk/res-auto"
         android:id="@+id/map_fragment"
         android:name="com.tomtom.online.sdk.map.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        app:layout_constraintTop_toBottomOf="@+id/ortext"
+        tools:layout="@layout/map_view"
         tomtom:mapsApiKey="zL1iZrkaAacjmHWGNotkcW9X2CH4tbBy"
-        tools:layout="@layout/map_view" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextlongitude"
+        />
 
-    <Button
-        android:id="@+id/selectmaplocationbutton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="getlocationfrommap"
-        android:text="Set Location as map center"
-        app:layout_constraintTop_toBottomOf="@+id/map_fragment" />
-
-    <!--
     <EditText xmlns:tomtom="http://schemas.android.com/apk/res-auto"
         android:id="@+id/searchText"
         android:layout_width="wrap_content"
@@ -113,54 +94,56 @@
         android:text="Default view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchText" />
-    -->
+
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:onClick="getLocation"
-        android:text="Get GPS Location"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextlongitude"
+        android:text="Get Location"
+        app:layout_constraintTop_toBottomOf="@+id/map_fragment"
         tools:layout_editor_absoluteX="130dp" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="getLayerData"
-        android:text="Calculate Risk Score"
-        app:layout_constraintTop_toBottomOf="@+id/button7"
-        tools:layout_editor_absoluteX="158dp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
-        tools:layout_editor_absoluteX="176dp"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/map_fragment"
-        app:layout_constraintEnd_toEndOf="@+id/map_fragment"
-        app:layout_constraintStart_toStartOf="@+id/map_fragment"
-        app:layout_constraintTop_toTopOf="@+id/map_fragment"
-        app:srcCompat="@drawable/ic_map_route_destination" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/home"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="viewlayermaps"
-        android:text="View thematic layers >"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectmaplocationbutton" />
+        android:fontFamily="sans-serif-black"
+        android:onClick="inputonclick"
+        android:text="Input"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/purple_500"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/maplayers"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
 
+        android:onClick="maplayersonclick"
+        android:text="Map Layers"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/purple_500"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/home" />
+
+    <Button
+        android:id="@+id/outputlayers"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:onClick="resultsonclick"
+        android:text="Results"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/purple_500"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/maplayers" />
 </androidx.constraintlayout.widget.ConstraintLayout>

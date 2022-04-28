@@ -13,8 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Geospatialplanning">
+
+        <meta-data
+            android:name="OnlineSearch.Key"
+            android:value="zL1iZrkaAacjmHWGNotkcW9X2CH4tbBy" />
         <activity
             android:name=".DisplayResultActivity"
+            android:exported="true"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".DisplayLayerMapActivity"
             android:exported="true"
             android:parentActivityName=".MainActivity"/>
         <activity
