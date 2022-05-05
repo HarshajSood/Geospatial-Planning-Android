@@ -26,6 +26,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guidelines>>"
+        android:onClick="newactivityguidelines"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
@@ -804,11 +813,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:onClick="getplaceofinterest"
+
+            android:onClick="suggestions"
             android:text="Search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/poitext"
             app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+        <fragment xmlns:tomtom="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/map_fragment1"
+            android:name="com.tomtom.online.sdk.map.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:layout_constraintTop_toBottomOf="@+id/poitext"
+            tomtom:mapsApiKey="zL1iZrkaAacjmHWGNotkcW9X2CH4tbBy"
+            tools:layout="@layout/map_view" />
 
         <TextView
             android:id="@+id/querytextView"
@@ -817,7 +836,7 @@
             android:layout_marginTop="25dp"
             app:layout_constraintEnd_toStartOf="@+id/button5"
             app:layout_constraintStart_toEndOf="@+id/button6"
-            app:layout_constraintTop_toBottomOf="@+id/poitext" />
+            app:layout_constraintTop_toBottomOf="@+id/map_fragment1" />
 
         <Button
             android:id="@+id/button6"
@@ -827,7 +846,7 @@
             android:onClick="getprevious"
             android:text="&lt;"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button4" />
+            app:layout_constraintTop_toBottomOf="@+id/map_fragment1" />
 
         <Button
             android:id="@+id/button5"
@@ -837,16 +856,14 @@
             android:onClick="getnext"
             android:text=">"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button4" />
+            app:layout_constraintTop_toBottomOf="@+id/map_fragment1" />
 
     <TableLayout
         android:id="@+id/tableLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="20dp"
         android:stretchColumns="1"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/querytextView">
 
         <TableRow>
@@ -887,6 +904,11 @@
 
 
     </TableLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout3"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

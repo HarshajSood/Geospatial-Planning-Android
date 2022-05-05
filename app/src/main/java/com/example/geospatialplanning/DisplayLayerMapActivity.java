@@ -90,9 +90,9 @@ public class DisplayLayerMapActivity extends AppCompatActivity{
             urlused = url1;
         }
         //System.out.println(text);
-        String urlLink=urlused+"/wms?request=getMap&bbox="+String.valueOf(lng-0.001)+
-                ","+String.valueOf(lat-0.001)+","+String.valueOf(lng+0.001)+","+
-                String.valueOf(lat+0.001)+"&CRS=EPSG:4326&width=1000&height=1000&layers="+lyrs +
+        String urlLink=urlused+"/wms?request=getMap&bbox="+String.valueOf(lng-0.01)+
+                ","+String.valueOf(lat-0.01)+","+String.valueOf(lng+0.01)+","+
+                String.valueOf(lat+0.01)+"&CRS=EPSG:4326&width=1000&height=1000&layers="+lyrs +
                 "&format=image/png&TRANSPARENT=TRUE";
         //System.out.println("\n"+urlLink+"\n");
         LoadImage loadImage = new LoadImage(imview);

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="0dp"
+    tools:context=".guidelines">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/guideline1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Coastal Regulation Zone \n\n
+Zone1: Installation of sand dunes or berms with the shallow rooted grass creepers (ipoemia and verviter) are proposed.\n\n
+Zone2: Proposed vegetation with shrubs and smaller plants- these will prevent soil erosion and accretion process as these roots holds on to the soil. \n\n
+Zone3: Close to the hinterland with deep rooted trees. This will have a twofold benefit- one being they will act as wind breakers in case of storm, two being deep-rooted they will stabilize the soil and reduce erosion and therefore it is recommended to be preserve these trees."
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/guideline2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Riparian Zone \n \nThere should be designated riparian zones which will act as a terrestrial biome and help to stabilize the area
+around these ponds/catchments. It will also help the soil around to not be eroded during heavy rains when the
+surface runoff is high. It will also purify the water in the ponds and propagate aquatic life. By acting as buffers
+between upland areas and open water, they help filter pollutants such as nutrients and sediment. Healthy
+riparian vegetation helps to reduce stream bank erosion and maintain stable stream channel geomorphology"
+            app:layout_constraintTop_toBottomOf="@+id/guideline1" />
+
+        <TextView
+            android:id="@+id/guideline3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Forest Protection Guidelines\n\n
+1. More participation of local people in protection of local forest areas should be encouraged.\n
+2. To promote ecotourism activity (Botanical garden, park etc.) in the study area. \n
+3. The reserved forest areas have to be protected and no activity should be allowed. \n
+4. Buffer zones may be planted by different trees such as wild Mango and wild jack and both these zones are to be
+maintained at density higher of 350 trees per hectare. This will give food to animals in the forest and reduce man
+animal conflict. \n
+5. The roots of the native vegetation specially chosen tree species for providing slope stability and steep slope areas
+have to be identified and afforested. \n
+6. The buffer zones can have trees that support commercial and cattle grazing activities but they have to be
+maintained and no cutting or felling of trees may be encouraged. \n
+7. The restricted forest cover which coinciding with existing residential or commercial land use have to be given
+priority, maintained and handled as an asset – no felling of trees. \n
+"
+            app:layout_constraintTop_toBottomOf="@+id/guideline2" />
+
+        <TextView
+            android:id="@+id/guideline4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Land use Management Guidelines\n \n
+1) Ridge Area Treatment: All activities required to restore the health of the catchment area by reducing the volume
+and velocity of surface run-off, including regeneration of vegetative cover in forest and common land,
+afforestation, staggered trenching, contour and graded bunding, bench terracing etc. \n
+2) Drainage line treatment with a combination of vegetative and engineering structures, such as earthen checks,
+brushwood checks, gully plugs, loose boulder checks, gabion structures, underground dykes etc \n
+3) Development of water harvesting structures such as low-cost farm ponds, nalla bunds, check-dams,
+percolation tanks and ground water recharge through wells, bore wells and other measures. \n
+4) No fill shall be placed on native topsoil. Fill areas shall be stripped of topsoil to be stockpiled at locations noted
+on the site plan. This stripped top soil is to be placed back on the site to facilitate revegetation. \n
+5) Land Development including in-situ soil and moisture conservation and drainage management measures like
+field bunds, contour and graded bunds fortified with plantation, bench terracing in hilly terrain etc can be
+practiced \n
+6) Crop demonstrations for popularizing new crops/varieties, water saving technologies such as drip irrigation or
+innovative management practices. As far as possible varieties based on the local germplasm may be
+promoted. \n
+7) Pasture development, sericulture, bee keeping, back yard poultry, small ruminant, other livestock’s and other
+micro-enterprises \n
+8) Veterinary services for livestock and other livestock improvement measures \n
+9) Fisheries development in Kulanje village along the river, farm ponds etc. \n
+10) Promotion and propagation of non-conventional energy saving devices, energy conservation measures, rain
+water harvesting at community level for farming and household level for healthy drinking water. \n
+11) Permissions for removal of sand and gravel from the river bed in Category III stretches only shall be given on
+the basis of the guidelines as prescribed by the MOEF and upheld by the Hon’ble Supreme Court. \n
+12) Industries as well as polluting activities like land fill, dumping of municipal and other solid (including
+construction debris) and liquid wastes, disposal of hazardous substances etc shall be color coded based upon
+their pollution potential as being RED (highly polluting); ORANGE (medium polluting) and GREEN (low
+polluting) will be governed by the Competent Authority following the Environment (Protection) Act 1986.\n
+13) No permanent construction of residential, industrial, commercial, recreational and public semipublic (PSP)
+nature shall be permitted within No Development Zones, NDZ and also the High Impact Zones, HIZ of river
+stretch.\n
+14) The Reserve forest areas shown in the GP map will be governed by Karnataka Forest Department and follow
+Forest (Conservation) Act, 2003 with amendments made in 2004.
+
+"
+            app:layout_constraintTop_toBottomOf="@+id/guideline3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

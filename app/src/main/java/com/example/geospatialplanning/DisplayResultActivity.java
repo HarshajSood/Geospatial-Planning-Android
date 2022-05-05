@@ -1,8 +1,10 @@
 package com.example.geospatialplanning;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,6 +18,28 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.common.collect.ImmutableList;
+import com.tomtom.online.sdk.common.location.LatLng;
+import com.tomtom.online.sdk.map.CameraPosition;
+import com.tomtom.online.sdk.map.Icon;
+import com.tomtom.online.sdk.map.MapFragment;
+import com.tomtom.online.sdk.map.MarkerAnchor;
+import com.tomtom.online.sdk.map.MarkerBuilder;
+import com.tomtom.online.sdk.map.OnMapReadyCallback;
+import com.tomtom.online.sdk.map.SimpleMarkerBalloon;
+import com.tomtom.online.sdk.map.TomtomMap;
+import com.tomtom.online.sdk.search.api.SearchError;
+import com.tomtom.online.sdk.search.api.fuzzy.FuzzySearchResultListener;
+import com.tomtom.online.sdk.search.data.common.Poi;
+import com.tomtom.online.sdk.search.data.fuzzy.FuzzySearchQuery;
+import com.tomtom.online.sdk.search.data.fuzzy.FuzzySearchQueryBuilder;
+import com.tomtom.online.sdk.search.data.fuzzy.FuzzySearchResponse;
+import com.tomtom.online.sdk.search.data.fuzzy.FuzzySearchResult;
+import com.tomtom.online.sdk.search.extensions.SearchService;
+import com.tomtom.online.sdk.search.extensions.SearchServiceConnectionCallback;
+import com.tomtom.online.sdk.search.extensions.SearchServiceManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +70,8 @@ public class DisplayResultActivity extends AppCompatActivity {
     private ImageView gridimg;
     private RadioGroup rg;
     private RadioButton rb, disable1, disable2, disable3, disable4, disable5;
+    TomtomMap tomtomMap1;
+    SearchService tomtomSearch1;
     gridtask gtask;
     private int radioselectnum;
     @Override
@@ -119,6 +145,30 @@ public class DisplayResultActivity extends AppCompatActivity {
                 }
             }
         */
+        //maps
+        MapFragment mapFragment = (MapFragment)getSupportFragmentManager().findFragmentById(R.id.map_fragment1);
+        //Log.d(TAG, "Request map from map fragment");
+        mapFragment.getAsyncMap(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(@NonNull TomtomMap map) {
+                ////Log.d(TAG, "Map retrieved");
+                tomtomMap1 = map;
+                tomtomMap1.setMyLocationEnabled(true);
+                LatLng position=new LatLng(Double.parseDouble(lat_loc),Double.parseDouble(lng_loc));
+
+                //Set the map view somewhere near San Jose
+                tomtomMap1.centerOn(CameraPosition.builder().focusPosition(position).zoom(13).build());
+            }
+
+        });
+
+        ServiceConnection serviceConnection = SearchServiceManager.createAndBind(getBaseContext(), new SearchServiceConnectionCallback() {
+            @Override
+            public void onBindSearchService(SearchService searchService) {
+                //Log.d(TAG,"Search service retrieved");
+                tomtomSearch1 = searchService;
+            }
+        });
 
 
         try{
@@ -327,6 +377,24 @@ public class DisplayResultActivity extends AppCompatActivity {
 
         //makegrid();
 
+    }
+
+    public void newactivityguidelines(View view)
+    {
+        Intent intent = new Intent(DisplayResultActivity.this, guidelines.class);
+        intent.putExtra("LULC_1",lulc_descr1);
+        intent.putExtra("LULC_2",lulc_descr2);
+        intent.putExtra("SLOPE_1",slope_class);
+        intent.putExtra("SLOPE_2",slope_range);
+        intent.putExtra("GEOMORPH",geomorphology_soil);
+        intent.putExtra("DRAINAGE",drainage_category);
+        intent.putExtra("BASIN",basin_name);
+        intent.putExtra("SUBBASIN",subbasin_name);
+        intent.putExtra("LDEG_1",landdeg_descr1);
+        intent.putExtra("LDEG_2",landdeg_descr2);
+        intent.putExtra("ALT",altitude);
+
+        startActivity(intent);
     }
     public void makegrid(int i, int j){
         String name="grid"+Integer.toString(i)+Integer.toString(j);
@@ -985,6 +1053,69 @@ public class DisplayResultActivity extends AppCompatActivity {
         protected void onPostExecute(Bitmap bitmap){
             gridimg.setImageBitmap(bitmap);
         }
+    }
+
+    public void suggestions(View view){
+        String query=poisearch.getText().toString();
+        index=0;
+        String queryurl="https://api.tomtom.com/search/2/poiSearch/"+query+".json?key=zL1iZrkaAacjmHWGNotkcW9X2CH4tbBy&lat="+String.valueOf(lat_loc)+"&lon="+String.valueOf(lng_loc);
+        Loadnearbyinfoquery squery= new Loadnearbyinfoquery();
+        squery.execute(queryurl);
+        LatLng mapcords=tomtomMap1.getCenterOfMap();
+        //latitude1.setText(mapcords.getLatitudeAsString());
+        //longitude1.setText(mapcords.getLongitudeAsString());
+        LatLng mapCenter = new LatLng(Double.parseDouble(mapcords.getLatitudeAsString()),Double.parseDouble(mapcords.getLongitudeAsString()));
+
+        FuzzySearchQuery searchQuery = FuzzySearchQueryBuilder.create(poisearch.getText().toString())
+                .withPosition(mapCenter)
+                .build();
+        tomtomSearch1.search(searchQuery, new FuzzySearchResultListener() {
+            private ImmutableList<FuzzySearchResult> lastSearchResult;
+
+            @Override
+            public void onSearchResult(FuzzySearchResponse fuzzySearchResponse) {
+                ImmutableList<FuzzySearchResult> results = fuzzySearchResponse.getResults();
+                showSearchResults(results);
+            }
+
+            void showSearchResults(ImmutableList<FuzzySearchResult> resultList)
+            {
+                //Log.i(TAG, resultList.toString());
+                this.lastSearchResult = resultList;
+                //adapter.notifyDataSetChanged();
+                System.out.println(lastSearchResult);
+                tomtomMap1.clear();
+                if(this.lastSearchResult.size() == 0)
+                {
+                    Toast.makeText(getBaseContext(), "No locations found",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                for(int i=0;i<lastSearchResult.size();++i)
+                {
+                    LatLng geoposition = lastSearchResult.get(i).getPosition();
+                    Poi poi = lastSearchResult.get(i).getPoi();
+                    String addressstring=lastSearchResult.get(i).getAddress().getFreeformAddress();
+                    //addressAuto.add(addressstring);
+                    //adapter.notifyDataSetChanged();
+                    MarkerBuilder markerBuilder = new MarkerBuilder(geoposition)
+                            .icon(Icon.Factory.fromResources(getBaseContext(),
+                                    R.drawable.location_icon))
+                            .markerBalloon(new SimpleMarkerBalloon(poi.getName()))
+                            .tag(lastSearchResult.get(i).getAddress())
+                            .iconAnchor(MarkerAnchor.Bottom)
+                            .decal(true);
+                    tomtomMap1.addMarker(markerBuilder);
+                }
+            }
+
+            @Override
+            public void onSearchError(SearchError searchError) {
+            }
+        });
+
+
     }
 
 }

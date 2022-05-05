@@ -126,32 +126,21 @@ public class MainActivity extends AppCompatActivity {
         sbutton3= (Button) findViewById(R.id.button3);
 
 
+
         MapFragment mapFragment = (MapFragment)getSupportFragmentManager().findFragmentById(R.id.map_fragment);
-        //Log.d(TAG, "Request map from map fragment");
         mapFragment.getAsyncMap(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull TomtomMap map) {
-                ////Log.d(TAG, "Map retrieved");
                 tomtomMap = map;
                 tomtomMap.setMyLocationEnabled(true);
-
-                //Set the map view somewhere near San Jose
-                //tomtomMap.centerOn(cameraFocusArea, new AnimationDuration(1500, TimeUnit.MILLISECONDS));
             }
-
         });
-
-
-
-
-        //Log.d(TAG, "Requesting search service");
         ServiceConnection serviceConnection = SearchServiceManager.createAndBind(getBaseContext(), new SearchServiceConnectionCallback() {
                     @Override
                     public void onBindSearchService(SearchService searchService) {
-                        //Log.d(TAG,"Search service retrieved");
                         tomtomSearch = searchService;
                     }
-                });
+        });
 
 
 
@@ -188,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, DisplayLayerMapActivity.class);
         intent.putExtra("Final_lat", latitude1.getText().toString());
         intent.putExtra("Final_lng", longitude1.getText().toString());
+        startActivity(intent);
         startActivity(intent);
     }
 
